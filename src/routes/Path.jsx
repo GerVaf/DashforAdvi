@@ -7,24 +7,18 @@ import Login from "../pages/Login";
 import CreateWithEditor from "../components/CreateBlog/CreateWithEditor.jsx/CreateWithEditor";
 import CreateWithDrapAndDrop from "../components/CreateBlog/CreateWithDrapAndDrop/CreateWithDrapAndDrop";
 import List from "../pages/List";
-import UserInfo from "../pages/UserInfo";
-import Gallery from "../pages/Gallery";
 import Ads from "../pages/Ads";
-import SignUp from "../pages/Signup";
+import SignUp from "../pages/SignUp";
 import RouteGuard from "../routes/RouteGuard";
+import Info from "../components/Home/Info";
+import Pending from "../components/List/Pending";
+import Draft from "../components/List/Draft";
+import Gallery from "../components/Home/Gallery";
 const Path = () => {
   const routes = [
     {
-      path: "list",
-      element: <List />,
-    },
-    {
-      path: "userInfo",
-      element: <UserInfo />,
-    },
-    {
-      path: "gallery",
-      element: <Gallery />,
+      path: "/",
+      element: <Dashboard />,
     },
     {
       path: "ads",
@@ -41,6 +35,26 @@ const Path = () => {
     {
       path: "create/drop",
       element: <CreateWithDrapAndDrop />,
+    },
+    {
+      path: "info",
+      element: <Info />,
+    },
+    {
+      path: "gallery",
+      element: <Gallery />,
+    },
+    {
+      path: "list",
+      element: <List />,
+    },
+    {
+      path: "list/pending",
+      element: <Pending />,
+    },
+    {
+      path: "list/draft",
+      element: <Draft />,
     },
   ];
   return (

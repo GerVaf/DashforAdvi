@@ -20,6 +20,18 @@ const Sidebar = ({ darkMode }) => {
       name: "Home",
       path: "/",
       icon: <HiMiniHome />,
+      child: [
+        {
+          id: 1,
+          name: "Info",
+          path: "info",
+        },
+        {
+          id: 2,
+          name: "Gallery",
+          path: "gallery",
+        },
+      ],
     },
 
     {
@@ -35,8 +47,8 @@ const Sidebar = ({ darkMode }) => {
         },
         {
           id: 2,
-          name: "My Blogs",
-          path: "myBlogs",
+          name: "Draft",
+          path: "draft",
         },
       ],
     },
@@ -74,7 +86,9 @@ const Sidebar = ({ darkMode }) => {
   return (
     <div className="w-full h-[100vh] flex flex-col justify-between items-center gap-10 py-10 dark:bg-secondary dark:backdrop-blur-md">
       <div className="flex flex-col gap-5">
-        <h1 className="font-bold text-3xl text-center">INDX for Advertisement</h1>
+        <h1 className="font-bold text-3xl text-center">
+          INDX for Advertisement
+        </h1>
         <div className="w-[90%] flex flex-col gap-8">
           {mainMenu.map((el) => (
             <div key={el.id}>
@@ -142,9 +156,17 @@ const Sidebar = ({ darkMode }) => {
                         exit={{ opacity: 0 }} // Add exit animation
                       >
                         <NavLink
-                          to={el.path + "/" + ch.path}
+                          to={
+                            el.path === "/"
+                              ? `/${ch.path}`
+                              : `${el.path}/${ch.path}`
+                          }
                           className={`${
-                            location.pathname.includes(el.path + "/" + ch.path)
+                            location.pathname.includes(
+                              el.path === "/"
+                                ? `/${ch.path}`
+                                : `${el.path}/${ch.path}`
+                            )
                               ? "text-gray-800 font-bold dark:text-white"
                               : ""
                           } py-3 rounded-lg cursor-pointer text-gray-500 flex justify-between px-10 items-center dark:text-white`}
