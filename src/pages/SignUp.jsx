@@ -7,6 +7,7 @@ import { BiImageAdd } from "react-icons/bi";
 const SignUp = () => {
   const nav = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
+  const [error, setError] = useState(null);
   // State to store the form data
   const [formData, setFormData] = useState({
     name: "",
@@ -38,7 +39,7 @@ const SignUp = () => {
     });
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,10 +52,10 @@ const SignUp = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/customers/create`,
-        data, 
+        data,
         {
           headers: {
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -62,10 +63,11 @@ const SignUp = () => {
         nav("/login");
       }
     } catch (error) {
-      console.log(error);
+      setError(error?.response?.data?.errors);
     }
   };
 
+  console.log(error);
   return (
     <div className="w-full h-full z-50 relative flex flex-col py-20 justify-center items-center bg-white ">
       <h1 className="text-5xl font-bold">SignUp to your account</h1>
@@ -74,7 +76,7 @@ const SignUp = () => {
         className="flex flex-col gap-10 lg:w-[50%] p-5"
       >
         {/* profile  */}
-        <label htmlFor="profile-image" className="cursor-pointer self-center">
+        <label htmlFor="profile-image" className="cursor-pointer self-center mt-5">
           {profileImage ? (
             <Image
               radius={"50%"}
@@ -97,6 +99,14 @@ const SignUp = () => {
             onChange={handleImageChange}
           />
         </label>
+        <p className="flex flex-col items-center justify-center text-red-500">
+          {Object.entries(error || {}).map(([key, value], index) => (
+            <span key={index}>
+              {`${key}: ${value}`}
+              <br />
+            </span>
+          ))}
+        </p>
         <div className="flex flex-col gap-2">
           <label className="text-2xl" htmlFor="name">
             Name

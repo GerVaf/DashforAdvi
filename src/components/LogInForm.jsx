@@ -26,7 +26,12 @@ const LogInForm = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/auth`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log(response);
       if (response?.status === 200) {

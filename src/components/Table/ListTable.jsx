@@ -25,19 +25,24 @@ const ListTable = ({ parent }) => {
 
       setData(filteredData);
     } catch (error) {
-      console.log(error);
+      console.log(
+        error.response.status === 403 &&
+          setTimeout(() => {
+            window.location.reload();
+          }, 500)
+      );
     }
   };
 
-  const refreshToken = async () => {
-    try {
-      const response = await get("/auth/refresh");
-      console.log(response)
-    } catch (error) {}
-  };
+  // const refreshToken = async () => {
+  //   try {
+  //     const response = await get("/auth/refresh");
+  //     console.log(response)
+  //   } catch (error) {}
+  // };
 
   useEffect(() => {
-    refreshToken()
+    // refreshToken()
     dataOfData();
   }, [refresh, parent]);
 
