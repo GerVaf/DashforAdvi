@@ -29,7 +29,15 @@ const ListTable = ({ parent }) => {
     }
   };
 
+  const refreshToken = async () => {
+    try {
+      const response = await get("/auth/refresh");
+      console.log(response)
+    } catch (error) {}
+  };
+
   useEffect(() => {
+    refreshToken()
     dataOfData();
   }, [refresh, parent]);
 
