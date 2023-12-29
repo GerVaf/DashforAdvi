@@ -4,16 +4,17 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 // console.log(token)
 
-const baseUrl = import.meta.env.VITE_BASE_URL
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
   headers: {
     "Content-Type": "multiple/form-data",
-    Authorization: `Bearer ${token}`,
   },
 });
-
+axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${Cookies.get(
+  "token"
+)}`;
 export const get = (url) => {
   return axiosInstance.get(url);
 };
