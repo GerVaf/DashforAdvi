@@ -29,3 +29,15 @@ input::-webkit-inner-spin-button {
 /* .active{
     @apply bg-gradient-to-r from-cyan-400 to-cyan-500 text-white shadow-lg 
 } */
+.input-form {
+  @apply px-5 py-3 outline-none border rounded;
+}
+.btn {
+  @apply px-6 py-2 bg-red-500 text-white rounded;
+}
+.submit-btn {
+  @apply px-5 py-1 bg-green-500 text-white rounded font-bold;
+}
+.dis-btn {
+  @apply px-5 py-1 bg-gray-500 text-white rounded font-bold outline-none;
+}

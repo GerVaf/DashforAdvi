@@ -87,7 +87,7 @@ const Sidebar = ({ darkMode }) => {
     <div className="w-full h-[100vh] flex flex-col justify-between items-center gap-10 py-10 dark:bg-secondary dark:backdrop-blur-md">
       <div className="flex flex-col gap-5">
         <h1 className="font-bold text-3xl text-center">
-          INDX for Advertisement
+          INDX for Advertising
         </h1>
         <div className="w-[90%] flex flex-col gap-8">
           {mainMenu.map((el) => (

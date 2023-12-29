@@ -5,7 +5,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { get, post } from "../../../Global/api";
 import NoteModal from "../NoteModal";
 import SunEditor from "suneditor-react";
-import { MultiSelect } from "@mantine/core";
+import { MultiSelect, Select } from "@mantine/core";
 
 const CreateWithEditor = () => {
   const nav = useNavigate();
@@ -37,9 +37,10 @@ const CreateWithEditor = () => {
     description: "",
     date: "",
     author: "",
-    todo: " ",
-    is_unlayer: false,
-    hashTag: [],
+    // todo: " ",
+    // is_unlayer: false,
+    // hashTag: [],
+    status: 0,
   });
   // console.log(formData);
 
@@ -51,12 +52,12 @@ const CreateWithEditor = () => {
     });
   };
 
-  const handleHashTag = (values) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      hashTag: values,
-    }));
-  };
+  // const handleHashTag = (values) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     hashTag: values,
+  //   }));
+  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -81,13 +82,13 @@ const CreateWithEditor = () => {
     });
   };
 
-  const updateTodo = (selectedNotes) => {
-    const todoString = selectedNotes.join(", ");
-    setFormData({
-      ...formData,
-      todo: todoString,
-    });
-  };
+  // const updateTodo = (selectedNotes) => {
+  //   const todoString = selectedNotes.join(", ");
+  //   setFormData({
+  //     ...formData,
+  //     todo: todoString,
+  //   });
+  // };
 
   const handleEditorChange = (content) => {
     // console.log(content);
@@ -96,6 +97,8 @@ const CreateWithEditor = () => {
       description: content,
     }));
   };
+
+  console.log(formData);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -111,7 +114,7 @@ const CreateWithEditor = () => {
 
     console.log("Submitted data:", data);
 
-    post("/blogs", data)
+    post("/ads", data)
       .then((response) => {
         console.log(response);
         if (response?.status === 201) {
@@ -281,7 +284,7 @@ const CreateWithEditor = () => {
               /> */}
             </div>
             {/* adding hashTag  */}
-            <div className="col-span-6">
+            {/* <div className="col-span-6">
               <MultiSelect
                 styles={{
                   input: {
@@ -296,18 +299,11 @@ const CreateWithEditor = () => {
                 onChange={handleHashTag}
                 searchable
               />
-            </div>
+            </div> */}
           </div>
 
           {/* bottom btn  */}
-          <div className="col-span-12 flex w-full justify-between">
-            {/* modal */}
-            <div
-              onClick={open}
-              className="px-5 text-center flex items-center bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-xl text-white font-bold shadow-lg transition-all hover:shadow hover:to-cyan-400"
-            >
-              Add Note
-            </div>
+          <div className="col-span-12 flex w-full justify-end">
             {/* submit btn */}
             <div>
               <button type="submit" className="cursor-pointer">
@@ -317,7 +313,6 @@ const CreateWithEditor = () => {
               </button>
             </div>
           </div>
-          <NoteModal updateTodo={updateTodo} opened={opened} close={close} />
         </form>
       </div>
     </div>

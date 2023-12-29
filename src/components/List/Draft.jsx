@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import ListTable from "../Table/ListTable";
 
 const Draft = () => {
-  return (
-    <div>Draft</div>
-  )
-}
+  return <div><ListTable parent={'draft'}/></div>;
+};
 
-export default Draft
+export default Draft;

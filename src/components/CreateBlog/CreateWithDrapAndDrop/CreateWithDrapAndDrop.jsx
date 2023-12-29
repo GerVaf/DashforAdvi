@@ -28,7 +28,7 @@ const CreateWithDrapAndDrop = () => {
     category: "",
     date: "",
     title: "",
-    todo: " ",
+    // todo: " ",
     unlayer: "",
     unjson: "",
     is_unlayer: true,

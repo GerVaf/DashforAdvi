@@ -25,15 +25,14 @@ const LogInForm = () => {
     console.log("Form Data:", formData);
     try {
       const response = await axios.post(
-        "https://api.dummy.opaqueindustries.news/auth",
+        `${import.meta.env.VITE_BASE_URL}/auth`,
         formData
       );
       console.log(response);
       if (response?.status === 200) {
-        Cookies
-        .set("token", response?.data?.data?.access_token);
-        nav("/dashboard");
+        Cookies.set("token", response?.data?.data?.access_token);
       }
+      nav("/");
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +77,7 @@ const LogInForm = () => {
         </div>
         {/* sigin up href and remind text and login */}
         <div className="flex justify-around items-center">
-          <button className="btn" type="submit" onClick={()=>nav('/')}>
+          <button className="btn" type="submit">
             Login
           </button>
           <div className="flex justify-between items-center gap-3">

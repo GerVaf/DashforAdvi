@@ -11,7 +11,7 @@ const ListDropDown = ({ values, open }) => {
       </div>
       <div
         onMouseLeave={() => setShow(false)}
-        className={`top-10 absolute w-full  rounded border border-slate-100 p-3 flex flex-col gap-2 transition-opacity ${
+        className={`top-10 absolute w-[100px] z-50  rounded border border-slate-100 bg-white p-3 flex flex-col gap-2 transition-opacity ${
           show ? "opacity-100" : "opacity-0 hidden"
         }`}
       >
@@ -19,7 +19,7 @@ const ListDropDown = ({ values, open }) => {
           return (
             <h1
               key={item}
-              onClick={item === 'history' && open}
+              onClick={item === "history" ? open : close}
               className="border-b pb-1 border-transparent hover:font-semibold hover:border-slate-100 cursor-pointer"
             >
               {item}

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { get } from "../../Global/api";
+import ListTable from "../Table/ListTable";
 
 const Pending = () => {
-  return (
-    <div>Pending</div>
-  )
-}
 
-export default Pending
+  return (
+    <div>
+      <ListTable parent={'pending'} />
+    </div>
+  );
+};
+
+export default Pending;

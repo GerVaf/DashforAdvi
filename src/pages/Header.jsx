@@ -44,7 +44,7 @@ const Header = () => {
             className="cursor-pointer group flex justify-center items-center gap-3 px-5 py-3 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-xl text-white text-base font-bold shadow-lg transition-all hover:shadow hover:to-cyan-400 dark:from-iconActive dark:to-blue-600"
           >
             <BsPencilSquare className="text-xl group-hover:animate-bounce" />
-            Create Blog
+            Create
           </button>
         </div>
       </div>

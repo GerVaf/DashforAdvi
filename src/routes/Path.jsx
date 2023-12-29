@@ -63,13 +63,20 @@ const Path = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
+          <Route
+            index
+            element={
+              <RouteGuard>
+                <Dashboard />
+              </RouteGuard>
+            }
+          />
           {routes.map((route) => {
             return (
               <Route
                 key={route.path}
                 path={route.path}
-                element={route.element}
+                element={<RouteGuard>{route.element}</RouteGuard>}
               />
             );
           })}
