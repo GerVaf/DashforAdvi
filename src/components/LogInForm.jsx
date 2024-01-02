@@ -8,6 +8,7 @@ const LogInForm = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState(null);
 
   const nav = useNavigate();
 
@@ -22,16 +23,11 @@ const LogInForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+    // console.log("Form Data:", formData);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/auth`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        `${import.meta.env.VITE_BASE_URL}/auth/login`,
+        formData
       );
       console.log(response);
       if (response?.status === 200) {
@@ -39,17 +35,27 @@ const LogInForm = () => {
       }
       nav("/");
     } catch (error) {
-      console.log(error);
+      setError(error?.response?.data?.errors);
     }
   };
 
   return (
     <div className="w-full h-full z-50 relative flex flex-col py-20 justify-center items-center bg-white ">
       <h1 className="text-5xl font-bold">Login to your account</h1>
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-10 lg:w-[50%] p-5"
       >
+        {/* showing error  */}
+        <p className="flex flex-col items-center justify-center text-red-500">
+          {Object.entries(error || {}).map(([key, value], index) => (
+            <span key={index}>
+              {`${key}: ${value}`}
+              <br />
+            </span>
+          ))}
+        </p>
         <div className="flex flex-col gap-2">
           <label className="text-2xl" htmlFor="email">
             Email

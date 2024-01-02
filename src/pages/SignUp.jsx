@@ -51,7 +51,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/customers/create`,
+        `${import.meta.env.VITE_BASE_URL}/user`,
         data,
         {
           headers: {
@@ -59,15 +59,16 @@ const SignUp = () => {
           },
         }
       );
+      console.log(response)
       if (response?.status === 201) {
-        nav("/login");
+        // nav("/login");
       }
     } catch (error) {
       setError(error?.response?.data?.errors);
     }
   };
 
-  console.log(error);
+  // console.log(error);
   return (
     <div className="w-full h-full z-50 relative flex flex-col py-20 justify-center items-center bg-white ">
       <h1 className="text-5xl font-bold">SignUp to your account</h1>

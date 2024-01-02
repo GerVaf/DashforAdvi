@@ -15,18 +15,18 @@ const ListTable = ({ parent }) => {
   const dataOfData = async () => {
     try {
       const response = await get("ads/getAllAds");
-      let filteredData = response?.data?.data || [];
+      let filteredData = response.data.data || [];
 
       if (parent === "draft") {
-        filteredData = filteredData.filter((el) => el.status === 0);
+        filteredData = filteredData.filter((el) => el?.status === 0);
       } else if (parent === "pending") {
-        filteredData = filteredData.filter((el) => el.status === 1);
+        filteredData = filteredData.filter((el) => el?.status === 1);
       }
 
       setData(filteredData);
     } catch (error) {
       console.log(
-        error.response.status === 403 &&
+        error?.response?.status === 403 &&
           setTimeout(() => {
             window.location.reload();
           }, 500)
@@ -96,21 +96,21 @@ const ListTable = ({ parent }) => {
       </div>
 
       {/* Table Row */}
-      {data?.map((el, index) => (
+      {data.map((el, index) => (
         <div key={index}>
           <div className="grid grid-cols-12 items-center text-center py-5 border-b transition-colors hover:bg-gray-200 dark:border-secondary dark:bg-secondary dark:text-white dark:hover:bg-primary">
             <div className="col-span-1 flex justify-center items-center">
               {index + 1}
             </div>
-            <p className="col-span-3">{el.author}</p>
-            <p className="col-span-2">{el.date}</p>
+            <p className="col-span-3">{el?.author}</p>
+            <p className="col-span-2">{el?.date}</p>
             <div className="col-span-2 cursor-pointer flex items-center justify-center gap-3">
               <div
                 className={`flex justify-center items-center ${
-                  getStatusProperties(el.status).className
+                  getStatusProperties(el?.status).className
                 } rounded-md px-3 text-white`}
               >
-                {getStatusProperties(el.status).text}
+                {getStatusProperties(el?.status).text}
               </div>
             </div>
 
@@ -129,7 +129,7 @@ const ListTable = ({ parent }) => {
                 values={
                   el?.status === 1
                     ? ["edit", "history"]
-                    : ["edit", "history", "delete"]
+                    : ["edit", "history", "del?ete"]
                 }
                 open={open}
               />
