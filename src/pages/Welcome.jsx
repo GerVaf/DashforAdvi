@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 
 const Welcome = () => {
   return (
+    <>
+    <div className="bg-gray-500 text-white p-5">
+      <h1 className="font-bold text-5xl">INDX</h1>
+    </div>
     <div className="flex flex-col py-5">
       <div className="flex flex-wrap justify-center items-center gap-5 mb-5">
         <WelcomeCard />
@@ -24,7 +28,7 @@ const Welcome = () => {
           Login to INDX pro
         </Link>
       </div>
-    </div>
+    </div></>
   );
 };
 
