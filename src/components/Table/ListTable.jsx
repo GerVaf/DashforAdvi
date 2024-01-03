@@ -3,46 +3,41 @@ import ListDropDown from "../ListDropDown";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import ModalTable from "../ModalTable";
-import { get } from "../../Global/api";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const ListTable = ({ parent }) => {
+  const accessInfo = useSelector((state) => state?.user?.access?.accessToken);
+
   const [opened, { open, close }] = useDisclosure(false);
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(true);
 
   const dataOfData = async () => {
     try {
-      const response = await get("ads/getAllAds");
-      let filteredData = response.data.data || [];
-
-      if (parent === "draft") {
-        filteredData = filteredData.filter((el) => el?.status === 0);
-      } else if (parent === "pending") {
-        filteredData = filteredData.filter((el) => el?.status === 1);
-      }
-
-      setData(filteredData);
-    } catch (error) {
-      console.log(
-        error?.response?.status === 403 &&
-          setTimeout(() => {
-            window.location.reload();
-          }, 500)
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/ads/AllAds`,
+        {
+          status: parent,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessInfo}`,
+          },
+        }
       );
+      console.log(response);
+      if (response?.status === 200) {
+        setData(response?.data?.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  // const refreshToken = async () => {
-  //   try {
-  //     const response = await get("/auth/refresh");
-  //     console.log(response)
-  //   } catch (error) {}
-  // };
-
   useEffect(() => {
-    // refreshToken()
     dataOfData();
   }, [refresh, parent]);
 
@@ -60,28 +55,28 @@ const ListTable = ({ parent }) => {
   };
 
   // console.log(data);
-  const handleSubmitPending = async (id, status) => {
-    const token = Cookies.get("token");
-    try {
-      const result = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/ads/changeStatus`,
-        { id, status },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // const handleSubmitPending = async (id, status) => {
+  //   const token = Cookies.get("token");
+  //   try {
+  //     const result = await axios.post(
+  //       `${import.meta.env.VITE_BASE_URL}/ads/changeStatus`,
+  //       { id, status },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      // console.log(result);
-      setRefresh(!refresh);
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
-  };
+  //     // console.log(result);
+  //     setRefresh(!refresh);
+  //   } catch (error) {
+  //     console.error("Error submitting data:", error);
+  //   }
+  // };
 
-  console.log(parent);
+  // console.log(parent);
 
   return (
     <div>

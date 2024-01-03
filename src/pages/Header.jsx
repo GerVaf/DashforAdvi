@@ -9,11 +9,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const location = useLocation();
   const nav = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
+  const userInfo = useSelector((state) => state?.user?.user_info);
+  // console.log(userInfo);
 
   return (
     <>
@@ -29,7 +32,7 @@ const Header = () => {
         <div className="flex items-center text-gray-600 text-xl gap-5 dark:text-white">
           <div className="flex gap-3 items-center">
             <BsPersonCircle />
-            <p className="text-base">usename</p>
+            <p className="text-base">{userInfo?.name}</p>
           </div>
           {/* Notification */}
           <div onClick={open}>

@@ -1,7 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { accessInfo } from "../Global/Slice/AuthSlice";
 
 const LogInForm = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,7 @@ const LogInForm = () => {
 
   const nav = useNavigate();
 
+  const dispatch = useDispatch();
   // Handle input change
   const handleChange = (e) => {
     setFormData({
@@ -31,7 +34,11 @@ const LogInForm = () => {
       );
       console.log(response);
       if (response?.status === 200) {
-        Cookies.set("token", response?.data?.data?.access_token);
+        Cookies.set("token", response?.data?.accessToken);
+        Cookies.set("refreshToken", response?.data?.refreshToken);
+      }
+      if (response?.data) {
+        dispatch(accessInfo(response?.data));
       }
       nav("/");
     } catch (error) {

@@ -61,7 +61,7 @@ const SignUp = () => {
       );
       console.log(response)
       if (response?.status === 201) {
-        // nav("/login");
+        nav("/login");
       }
     } catch (error) {
       setError(error?.response?.data?.errors);

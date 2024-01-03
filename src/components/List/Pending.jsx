@@ -6,7 +6,7 @@ const Pending = () => {
 
   return (
     <div>
-      <ListTable parent={'pending'} />
+      <ListTable parent={1} />
     </div>
   );
 };

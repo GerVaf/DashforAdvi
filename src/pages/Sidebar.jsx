@@ -79,6 +79,7 @@ const Sidebar = ({ darkMode }) => {
 
   const logoutHandler = () => {
     Cookies.remove("token");
+    Cookies.remove("refreshToken");
     dispatch(logOut(null));
     nav("/login");
   };
@@ -86,9 +87,7 @@ const Sidebar = ({ darkMode }) => {
   return (
     <div className="w-full h-[100vh] flex flex-col justify-between items-center gap-10 py-10 dark:bg-secondary dark:backdrop-blur-md">
       <div className="flex flex-col gap-5">
-        <h1 className="font-bold text-3xl text-center">
-          INDX for Advertising
-        </h1>
+        <h1 className="font-bold text-3xl text-center">INDX for Advertising</h1>
         <div className="w-[90%] flex flex-col gap-8">
           {mainMenu.map((el) => (
             <div key={el.id}>

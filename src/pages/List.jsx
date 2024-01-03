@@ -4,7 +4,7 @@ import ListTable from '../components/Table/ListTable'
 const List = () => {
   return (
     <div>
-        <ListTable parent={'list'}/>
+        {/* <ListTable parent={'list'}/> */}
     </div>
   )
 }
