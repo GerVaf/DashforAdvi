@@ -3,9 +3,12 @@ import EmailEditor from "react-email-editor";
 import { get, post } from "../../../Global/api";
 import { useNavigate } from "react-router-dom";
 import { MultiSelect } from "@mantine/core";
+import { useSelector } from "react-redux";
 const CreateWithDrapAndDrop = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const nav = useNavigate();
+
+  const userInfo = useSelector((state) => state?.user?.user_info);
 
   // for hash tag data
   const [hashTags, setHashTags] = useState([]);
@@ -28,12 +31,14 @@ const CreateWithDrapAndDrop = () => {
     category: "",
     date: "",
     title: "",
-    // todo: " ",
-    unlayer: "",
+    // unlayer: "",
     unjson: "",
-    is_unlayer: true,
+    undescription:null,
+    use_unlayer: true,
     images: null,
     hashTag: [],
+    status: 0,
+    user: userInfo?._id,
   });
   // console.log(formData)
   const emailEditorRef = useRef(null);
@@ -80,10 +85,10 @@ const CreateWithDrapAndDrop = () => {
 
       setFormData((prevFormData) => ({
         ...prevFormData,
-        unlayer: cleanHTML,
+        undescription: cleanHTML,
         unjson: JSON.stringify(design),
       }));
-      console.log(formData.unlayer);
+      console.log(formData.undescription);
     });
   };
 
@@ -106,12 +111,12 @@ const CreateWithDrapAndDrop = () => {
       }
     });
 
-    if (formData?.unlayer) {
+    if (formData?.undescription) {
       try {
-        const response = await post("/blogs", data);
+        const response = await post("/ads", data);
         console.log("Posted to API:", response);
         if (response?.status === 201) {
-          nav("/list/pending");
+          nav("/list");
         }
       } catch (error) {
         console.error("Error posting to API:", error);
@@ -154,7 +159,6 @@ const CreateWithDrapAndDrop = () => {
                 </p>
               </div>
             )}
-
             <input
               type="file"
               accept="image/*"
@@ -183,7 +187,6 @@ const CreateWithDrapAndDrop = () => {
               required
             />
           </div>
-
           {/* author  */}
           <div className="col-span-6 flex flex-col gap-2">
             <label className="text-sm font-semibold" htmlFor="author">

@@ -6,6 +6,7 @@ const initialState = {
   production_table: [],
   program_title: [],
   hash_blogs: [],
+  history: [],
 };
 
 export const blogSlice = createSlice({
@@ -30,6 +31,9 @@ export const blogSlice = createSlice({
     blogOfHash: (state, { payload }) => {
       state.hash_blogs = payload;
     },
+    addHistory: (state, { payload }) => {
+      state.history = payload;
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   productionTable,
   programTitle,
   blogOfHash,
+  addHistory,
 } = blogSlice.actions;
 
 export default blogSlice.reducer;

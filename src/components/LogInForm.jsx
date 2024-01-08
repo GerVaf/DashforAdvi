@@ -37,6 +37,7 @@ const LogInForm = () => {
         Cookies.set("token", response?.data?.accessToken);
         Cookies.set("refreshToken", response?.data?.refreshToken);
       }
+
       if (response?.data) {
         dispatch(accessInfo(response?.data));
       }
