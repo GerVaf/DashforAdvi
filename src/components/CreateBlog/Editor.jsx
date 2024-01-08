@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import "suneditor/dist/css/suneditor.min.css";
 import { useNavigate } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
-import { get, post } from "../../../Global/api";
+import { put } from "../../../Global/api";
 import NoteModal from "../NoteModal";
 import SunEditor from "suneditor-react";
 import { MultiSelect, Select } from "@mantine/core";
 import { useSelector } from "react-redux";
 
-const CreateWithEditor = () => {
+const Editor = () => {
   const nav = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
 
   const userInfo = useSelector((state) => state?.user?.user_info);
+  const adsData = useSelector((state) => state?.blog?.detailBlog);
+  console.log(adsData);
+
   // console.log(userInfo);
 
   // for hash tag data
@@ -37,17 +40,21 @@ const CreateWithEditor = () => {
   // console.log(JSON.stringify(HashTag))
 
   const [formData, setFormData] = useState({
-    title: "",
-    category: "",
+    _id: adsData?._id,
+    title: adsData?.title,
+    category: adsData?.category,
     images: {},
-    description: "",
-    date: "",
-    author: "",
+    description: adsData?.description,
+    date: adsData?.date,
+    author: adsData?.author,
+//     unlayer: "",
+//     unjson: "",
     use_unlayer: false,
     hashTag: [],
-    status: 0,
-    user: userInfo?._id,
+//     status: 0,
+//     user: userInfo?._id,
   });
+
   // console.log(formData);
 
   const handleInputChange = (e) => {
@@ -58,6 +65,16 @@ const CreateWithEditor = () => {
     });
   };
 
+  function formatDateForInput(date) {
+    const formattedDate = new Date(date);
+    const year = formattedDate.getFullYear();
+    const month = String(formattedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(formattedDate.getDate()).padStart(2, "0");
+    const hours = String(formattedDate.getHours()).padStart(2, "0");
+    const minutes = String(formattedDate.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
   // const handleHashTag = (values) => {
   //   setFormData((prevFormData) => ({
   //     ...prevFormData,
@@ -118,10 +135,10 @@ const CreateWithEditor = () => {
 
     console.log("Submitted data:", data);
 
-    post("/ads", data)
+    put("/ads", data)
       .then((response) => {
         console.log(response);
-        if (response?.status === 201) {
+        if (response?.status === 200) {
           nav("/list");
         }
       })
@@ -133,7 +150,7 @@ const CreateWithEditor = () => {
 
   return (
     <div>
-      <div className="font-bold text-3xl text-[#344767]">Create Blog</div>
+      <div className="font-bold text-3xl text-[#344767]">Edit Blog</div>
       {/* form */}
       <div className="py-5">
         <form className="grid grid-cols-12 gap-5" onSubmit={handleSubmit}>
@@ -243,7 +260,7 @@ const CreateWithEditor = () => {
                 type="datetime-local"
                 id="date"
                 name="date"
-                value={formData.date}
+                value={formatDateForInput(formData.date)}
                 onChange={handleInputChange}
                 required
               />
@@ -281,6 +298,7 @@ const CreateWithEditor = () => {
                 }}
                 setDefaultStyle="font-family: 'Roboto'; font-size: 16px;"
                 onChange={handleEditorChange}
+                defaultValue={formData?.description}
               />
               {/* <TextEditor
                 value={formData?.description}
@@ -323,4 +341,4 @@ const CreateWithEditor = () => {
   );
 };
 
-export default CreateWithEditor;
+export default Editor;

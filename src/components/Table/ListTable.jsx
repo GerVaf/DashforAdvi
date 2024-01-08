@@ -4,7 +4,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import ModalTable from "../ModalTable";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 
 const ListTable = ({ parent }) => {
@@ -124,9 +123,13 @@ const ListTable = ({ parent }) => {
                 values={
                   el?.status === 1
                     ? ["edit", "history"]
-                    : ["edit", "history", "del?ete"]
+                    : ["edit", "history", "delete"]
                 }
                 open={open}
+                ads_info={el}
+                accessInfo={accessInfo}
+                refresh={refresh}
+                setRefresh={setRefresh}
               />
             </div>
           </div>
