@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { logOut } from "../Global/Slice/AuthSlice";
 
-const Sidebar = ({ darkMode }) => {
+const Sidebar = () => {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState(1);
 
@@ -85,7 +85,7 @@ const Sidebar = ({ darkMode }) => {
   };
 
   return (
-    <div className="w-full h-[100vh] flex flex-col justify-between items-center gap-10 py-10 dark:bg-secondary dark:backdrop-blur-md">
+    <div className="w-full h-[100vh] flex flex-col justify-between items-center gap-10 py-10 ">
       <div className="flex flex-col gap-5">
         <h1 className="font-bold text-3xl text-center">INDX for Advertising</h1>
         <div className="w-[90%] flex flex-col gap-8">
@@ -96,9 +96,7 @@ const Sidebar = ({ darkMode }) => {
                 animate={{ scale: 1 }}
                 to={el.path}
                 className={`${
-                  activeItem === el.id
-                    ? "bg-white shadow-lg dark:bg-primary"
-                    : ""
+                  activeItem === el.id ? "bg-white shadow-lg " : ""
                 } py-3 rounded-lg cursor-pointer text-gray-500 flex justify-between px-10 items-center`}
               >
                 {/* icon and name */}
@@ -111,7 +109,7 @@ const Sidebar = ({ darkMode }) => {
                     }}
                     className={`${
                       activeItem === el.id
-                        ? "bg-gradient-to-r from-cyan-400 to-cyan-500 text-white shadow-lg dark:from-iconActive dark:to-blue-600"
+                        ? "bg-gradient-to-r from-cyan-400 to-cyan-500 text-white shadow-lg "
                         : "bg-white "
                     } text-md p-3 rounded-lg shadow-lg`}
                   >
@@ -166,9 +164,9 @@ const Sidebar = ({ darkMode }) => {
                                 ? `/${ch.path}`
                                 : `${el.path}/${ch.path}`
                             )
-                              ? "text-gray-800 font-bold dark:text-white"
+                              ? "text-gray-800 font-bold "
                               : ""
-                          } py-3 rounded-lg cursor-pointer text-gray-500 flex justify-between px-10 items-center dark:text-white`}
+                          } py-3 rounded-lg cursor-pointer text-gray-500 flex justify-between px-10 items-center `}
                         >
                           <div className="flex gap-5 items-center">
                             <motion.div

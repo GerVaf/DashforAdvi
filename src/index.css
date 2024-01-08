@@ -41,3 +41,7 @@ input::-webkit-inner-spin-button {
 .dis-btn {
   @apply px-5 py-1 bg-gray-500 text-white rounded font-bold outline-none;
 }
+
+.mantine-a240xj{
+  background-color: rgba(0, 0, 0,0.1);
+}

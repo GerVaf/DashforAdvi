@@ -73,7 +73,7 @@ const List = () => {
   return (
     <div>
       {/* Table Header */}
-      <div className="grid grid-cols-12 items-center text-[#344767] dark:text-white dark:border-secondary dark:bg-secondary text-center text-base font-semibold border-b py-3">
+      <div className="grid grid-cols-12 items-center text-[#344767] text-center text-base font-semibold border-b py-3">
         <h1 className="col-span-1">No.</h1>
         <h1 className="col-span-3">Name</h1>
         <h1 className="col-span-2">Date</h1>
@@ -86,7 +86,7 @@ const List = () => {
       <div className="flex flex-col-reverse">
         {list.map((el, index) => (
           <div key={index}>
-            <div className="grid grid-cols-12 items-center text-center py-5 border-b transition-colors hover:bg-gray-200 dark:border-secondary dark:bg-secondary dark:text-white dark:hover:bg-primary">
+            <div className="grid grid-cols-12 items-center text-center py-5 border-b transition-colors hover:bg-gray-200 ">
               <div className="col-span-1 flex justify-center items-center">
                 {index + 1}
               </div>

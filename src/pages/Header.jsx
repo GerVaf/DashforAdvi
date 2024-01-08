@@ -24,12 +24,12 @@ const Header = () => {
         className={`z-50 px-5 py-3 flex rounded-lg justify-between items-center`}
       >
         {/* left side */}
-        <div className="flex gap-3 items-center text-lg text-gray-400 dark:text-white">
+        <div className="flex gap-3 items-center text-lg text-gray-400">
           <HiMiniHome />
           <p>{location?.pathname?.split("/").join(" / ")}</p>
         </div>
         {/* right side */}
-        <div className="flex items-center text-gray-600 text-xl gap-5 dark:text-white">
+        <div className="flex items-center text-gray-600 text-xl gap-5">
           <div className="flex gap-3 items-center">
             <BsPersonCircle />
             <p className="text-base">{userInfo?.name}</p>

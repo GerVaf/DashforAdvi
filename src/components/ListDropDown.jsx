@@ -106,11 +106,11 @@ const ListDropDown = ({
   );
 };
 
-ListDropDown.propTypes = {
-  values: PropTypes.arrayOf(PropTypes.string).isRequired,
-  open: PropTypes.func,
-  close: PropTypes.func,
-  deleteAdsHandler: PropTypes.func,
-};
+// ListDropDown.propTypes = {
+//   values: PropTypes.arrayOf(PropTypes.string).isRequired,
+//   open: PropTypes.func,
+//   close: PropTypes.func,
+//   deleteAdsHandler: PropTypes.func,
+// };
 
 export default ListDropDown;
