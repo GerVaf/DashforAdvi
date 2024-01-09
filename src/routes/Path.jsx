@@ -14,7 +14,6 @@ import Info from "../components/Home/Info";
 import Pending from "../components/List/Pending";
 import Draft from "../components/List/Draft";
 import Gallery from "../components/Home/Gallery";
-import Welcome from "../pages/Welcome";
 import EditWithEditor from "../components/CreateBlog/CreateWithEditor.jsx/EditWithEditor";
 const Path = () => {
   const routes = [
@@ -66,7 +65,6 @@ const Path = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Layout />}>
