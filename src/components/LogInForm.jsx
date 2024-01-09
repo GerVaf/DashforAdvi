@@ -48,68 +48,64 @@ const LogInForm = () => {
   };
 
   return (
-    <div className="w-full h-full z-50 relative flex flex-col py-20 justify-center items-center bg-white ">
-      <h1 className="text-5xl font-bold">Login to your account</h1>
+    <div className="bg-black/30 backdrop-blur-sm relative z-10 w-full h-screen flex flex-col justify-center items-center gap-3">
+      <div className="shadow p-5 w-[600px] max-w-[500px] bg-white rounded">
+        <h1 className="text-3xl font-bold text-center">
+          Login to your account
+        </h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-10 p-5">
+          {/* showing error  */}
+          <p className="flex flex-col items-center justify-center text-red-500">
+            {Object.entries(error || {}).map(([key, value], index) => (
+              <span key={index}>
+                {`${key}: ${value}`}
+                <br />
+              </span>
+            ))}
+          </p>
+          <div className="flex flex-col gap-2">
+            <label className="text-2xl" htmlFor="email">
+              Email
+            </label>
+            <input
+              placeholder="Enter your name"
+              className="input-form"
+              type="text"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-2xl" htmlFor="password">
+              Password
+            </label>
+            <input
+              placeholder="Enter your password"
+              className="input-form"
+              type="password"
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-10 lg:w-[50%] p-5"
-      >
-        {/* showing error  */}
-        <p className="flex flex-col items-center justify-center text-red-500">
-          {Object.entries(error || {}).map(([key, value], index) => (
-            <span key={index}>
-              {`${key}: ${value}`}
-              <br />
-            </span>
-          ))}
-        </p>
-        <div className="flex flex-col gap-2">
-          <label className="text-2xl" htmlFor="email">
-            Email
-          </label>
-          <input
-            placeholder="Enter your name"
-            className="input-form"
-            type="text"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-2xl" htmlFor="password">
-            Password
-          </label>
-          <input
-            placeholder="Enter your password"
-            className="input-form"
-            type="password"
-            name="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {/* sigin up href and remind text and login */}
-        <div className="flex justify-around items-center">
-          <button className="btn" type="submit">
+          {/* sigin up href and remind text and login */}
+          <button className="btn self-center" type="submit">
             Login
           </button>
-          <div className="flex justify-between items-center gap-3">
-            <p>If you don't have an account!</p>
-            <Link
-              className=" underline text-red-500 cursor-pointer"
-              to={"/signup"}
-            >
-              Sign up
-            </Link>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      <button
+        onClick={() => nav("/signup")}
+        className="py-2 px-5 rounded bg-blue-500 text-white"
+      >
+        Create Account
+      </button>
     </div>
   );
 };

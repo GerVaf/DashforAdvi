@@ -15,15 +15,15 @@ export const RouteGuard = ({ children }) => {
       // console.log(currentTime);
       if (decodedToken.exp < currentTime) {
         // Token is expired
-        return <Navigate to="/welcome" />;
+        return <Navigate to="/login" />;
       }
 
       return children;
     } catch (error) {
-      return <Navigate to="/welcome" />;
+      return <Navigate to="/login" />;
     }
   } else {
-    return <Navigate to="/welcome" />;
+    return <Navigate to="/login" />;
   }
 };
 
