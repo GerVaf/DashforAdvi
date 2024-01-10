@@ -82,11 +82,12 @@ const ListTable = ({ parent }) => {
       {/* Table Header */}
       <div className="grid grid-cols-12 items-center text-[#344767] dark:text-white dark:border-secondary dark:bg-secondary text-center text-base font-semibold border-b py-3">
         <h1 className="col-span-1">No.</h1>
-        <h1 className="col-span-3">Name</h1>
+        <h1 className="col-span-2">Name</h1>
         <h1 className="col-span-2">Date</h1>
+        <h1 className="col-span-2">Program</h1>
         <h1 className="col-span-2">Status</h1>
         <h1 className={"col-span-2"}>Request</h1>
-        <h1 className="col-span-2">Action</h1>
+        <h1 className="col-span-1">Action</h1>
       </div>
 
       {/* Table Row */}
@@ -96,8 +97,9 @@ const ListTable = ({ parent }) => {
             <div className="col-span-1 flex justify-center items-center">
               {index + 1}
             </div>
-            <p className="col-span-3">{el?.author}</p>
+            <p className="col-span-2">{el?.author}</p>
             <p className="col-span-2">{el?.date}</p>
+            <p className="col-span-2">{el?.programsArray?.map(program=>program)}</p>
             <div className="col-span-2 cursor-pointer flex items-center justify-center gap-3">
               <div
                 className={`flex justify-center items-center ${
@@ -118,7 +120,7 @@ const ListTable = ({ parent }) => {
                 submit
               </button>
             </div>
-            <div className="col-span-2 flex items-center justify-center">
+            <div className="col-span-1 flex items-center justify-center">
               <ListDropDown
                 values={
                   el?.status === 1

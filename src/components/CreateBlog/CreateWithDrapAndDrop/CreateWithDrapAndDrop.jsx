@@ -4,8 +4,11 @@ import { get, post } from "../../../Global/api";
 import { useNavigate } from "react-router-dom";
 import { MultiSelect } from "@mantine/core";
 import { useSelector } from "react-redux";
+import axios from "axios";
 const CreateWithDrapAndDrop = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [programs, setPrograms] = useState([]);
+  const accessInfo = useSelector((state) => state?.user?.access?.accessToken);
   const nav = useNavigate();
 
   const userInfo = useSelector((state) => state?.user?.user_info);
@@ -22,7 +25,27 @@ const CreateWithDrapAndDrop = () => {
       console.log(error);
     }
   };
+
+  // Fetch Programs from business
+  const getPrograms = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.business.opaqueindustries.news/programs`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessInfo}`,
+          },
+        }
+      );
+      // console.log(response);
+      setPrograms(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    getPrograms();
     getHashTags();
   }, []);
 
@@ -33,14 +56,15 @@ const CreateWithDrapAndDrop = () => {
     title: "",
     // unlayer: "",
     unjson: "",
-    undescription:null,
+    undescription: null,
     use_unlayer: true,
     images: null,
     hashTag: [],
     status: 0,
     user: userInfo?._id,
+    programs: "",
   });
-  // console.log(formData)
+  console.log(formData)
   const emailEditorRef = useRef(null);
 
   const handleInputChange = (event) => {
@@ -236,6 +260,27 @@ const CreateWithDrapAndDrop = () => {
               onChange={handleInputChange}
               required
             />
+          </div>
+          {/* program  */}
+          <div className="col-span-6 flex flex-col gap-2">
+            <label className="text-sm font-semibold" htmlFor="programs">
+              Program
+            </label>
+            <select
+              className="outline-none rounded-lg p-3 border transition focus:border-cyan-400"
+              name="programs"
+              id="programs"
+              value={formData.programs}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select a Program</option>
+              {programs?.map((program, i) => (
+                <option key={i} value={program.p_id}>
+                  {program.title}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="col-span-12 h-screen">

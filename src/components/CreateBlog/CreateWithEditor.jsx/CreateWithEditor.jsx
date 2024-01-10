@@ -7,35 +7,16 @@ import NoteModal from "../NoteModal";
 import SunEditor from "suneditor-react";
 import { MultiSelect, Select } from "@mantine/core";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CreateWithEditor = () => {
   const nav = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [programs, setPrograms] = useState([]);
+  const accessInfo = useSelector((state) => state?.user?.access?.accessToken);
   const userInfo = useSelector((state) => state?.user?.user_info);
+
   // console.log(userInfo);
-
-  // for hash tag data
-  // const [hashTags, setHashTags] = useState([]);
-
-  // const getHashTags = async () => {
-  //   try {
-  //     const response = await get("/hashTags");
-  //     //   console.log(response);
-  //     const hashName = response?.data?.data;
-  //     setHashTags(hashName?.map((has) => has?.name));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getHashTags();
-  // }, []);
-
-  // console.log(hashTags)
-  // const HashTag = [{name:"Blah"},{name:"gguugaa"},{name:"Nag"}];
-  // console.log(JSON.stringify(HashTag))
-
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -47,6 +28,7 @@ const CreateWithEditor = () => {
     hashTag: [],
     status: 0,
     user: userInfo?._id,
+    programs: '',
   });
   // console.log(formData);
 
@@ -57,13 +39,6 @@ const CreateWithEditor = () => {
       [name]: value,
     });
   };
-
-  // const handleHashTag = (values) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     hashTag: values,
-  //   }));
-  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -86,14 +61,6 @@ const CreateWithEditor = () => {
     });
   };
 
-  // const updateTodo = (selectedNotes) => {
-  //   const todoString = selectedNotes.join(", ");
-  //   setFormData({
-  //     ...formData,
-  //     todo: todoString,
-  //   });
-  // };
-
   const handleEditorChange = (content) => {
     // console.log(content);
     setFormData((prevFormData) => ({
@@ -101,6 +68,7 @@ const CreateWithEditor = () => {
       description: content,
     }));
   };
+
 
   console.log(formData);
 
@@ -130,6 +98,28 @@ const CreateWithEditor = () => {
 
   // for note modal
   // const [opened, { open, close }] = useDisclosure(false);
+
+  // Fetch Programs from business
+  const getPrograms = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.business.opaqueindustries.news/programs`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessInfo}`,
+          },
+        }
+      );
+      // console.log(response);
+      setPrograms(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPrograms();
+  }, []);
 
   return (
     <div>
@@ -247,6 +237,27 @@ const CreateWithEditor = () => {
                 onChange={handleInputChange}
                 required
               />
+            </div>
+            {/* program  */}
+            <div className="col-span-6 flex flex-col gap-2">
+              <label className="text-sm font-semibold" htmlFor="programs">
+                Program
+              </label>
+              <select
+                className="outline-none rounded-lg p-3 border transition focus:border-cyan-400"
+                name="programs"
+                id="programs"
+                value={formData.programs}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select a Program</option>
+                {programs?.map((program, i) => (
+                  <option key={i} value={program._id}>
+                    {program.title}
+                  </option>
+                ))}
+              </select>
             </div>
             {/* content  */}
             <div className="col-span-12">
