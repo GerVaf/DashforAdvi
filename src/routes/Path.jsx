@@ -15,6 +15,7 @@ import Pending from "../components/List/Pending";
 import Draft from "../components/List/Draft";
 import Gallery from "../components/Home/Gallery";
 import EditWithEditor from "../components/CreateBlog/CreateWithEditor.jsx/EditWithEditor";
+import Program from "../pages/Program";
 const Path = () => {
   const routes = [
     {
@@ -60,6 +61,10 @@ const Path = () => {
     {
       path: "list/draft",
       element: <Draft />,
+    },
+    {
+      path: "program",
+      element: <Program />,
     },
   ];
   return (

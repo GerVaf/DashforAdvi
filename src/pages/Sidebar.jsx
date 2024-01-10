@@ -58,6 +58,12 @@ const Sidebar = () => {
       path: "ads",
       icon: <HiMiniHome />,
     },
+    {
+      id: 5,
+      name: "Program",
+      path: "program",
+      icon: <HiMiniHome />,
+    },
   ];
 
   useEffect(() => {
