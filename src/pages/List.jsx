@@ -16,12 +16,7 @@ const List = () => {
   const [refresh, setRefresh] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [programs, setPrograms] = useState([]);
-  const [title, setTitle] = useState();
-  const [formData, setFormData] = useState({
-    business_id: userId,
-    p_id: title,
-    ads_list: blogs.toString,
-  });
+  const [title, setTitle] = useState('');
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -71,7 +66,7 @@ const List = () => {
     getPrograms();
   }, [refresh]);
 
-  console.log(list);
+  // console.log(list);
   const getStatusProperties = (status) => {
     switch (status) {
       case 4:
@@ -128,13 +123,28 @@ const List = () => {
   // submit program
   const submitProgram = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(title);
+    console.log(blogs.toString());
+    console.log(userId)
+    try {
+      const res = await axios.post(
+        "https://api.business.opaqueindustries.news/programs",
+        {
+          business_id: userId,
+          p_id: title,
+          ads_list: blogs.toString(),
+          title: title,
+        },
+        {
+          headers:{Authorization:`Bearer ${accessInfo}`}
+        }
+      );
+      console.log(res);
+    } catch (error) {console.log(error)}
   };
-  console.log(programs);
-  console.log(title);
 
   const match = (el) => {
-    return programs.find((program) => program?._id === el?.programsArray[0])
+    return programs.find((program) => program?._id === el?.programsArray[0]);
   };
 
   return (
@@ -247,10 +257,7 @@ const List = () => {
                 className="py-2 px-5 outline-none"
                 name="programs"
                 id="programs"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setTitle(e.target.value);
-                }}
+                onChange={(e) => setTitle(e.target.value)}
               >
                 <option value="">Select an option</option>
                 {programs?.map((el) => (

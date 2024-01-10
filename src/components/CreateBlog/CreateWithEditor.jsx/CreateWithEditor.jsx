@@ -27,8 +27,8 @@ const CreateWithEditor = () => {
     use_unlayer: false,
     hashTag: [],
     status: 0,
-    user: userInfo?._id,
-    programs: '',
+    user: '659e183a8d0cd9dd704ec643',
+    programs: "",
   });
   // console.log(formData);
 
@@ -68,7 +68,6 @@ const CreateWithEditor = () => {
       description: content,
     }));
   };
-
 
   console.log(formData);
 
