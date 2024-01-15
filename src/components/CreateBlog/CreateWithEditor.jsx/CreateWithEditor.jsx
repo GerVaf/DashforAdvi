@@ -13,10 +13,9 @@ const CreateWithEditor = () => {
   const nav = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [programs, setPrograms] = useState([]);
-  const accessInfo = useSelector((state) => state?.user?.access?.accessToken);
-  const userInfo = useSelector((state) => state?.user?.user_info);
+  const accessInfo = useSelector((state) => state?.user?.access);
+  console.log(accessInfo)
 
-  // console.log(userInfo);
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -27,7 +26,7 @@ const CreateWithEditor = () => {
     use_unlayer: false,
     hashTag: [],
     status: 0,
-    user: '659e183a8d0cd9dd704ec643',
+    user: accessInfo?.id,
     programs: "",
   });
   // console.log(formData);
@@ -85,7 +84,13 @@ const CreateWithEditor = () => {
 
     console.log("Submitted data:", data);
 
-    post("/ads", data)
+    axios
+      .post(`${import.meta.env.VITE_BASE_URL}/ads`, data, {
+        headers: {
+          Authorization: `Bearer ${accessInfo?.accessToken}`,
+          "Content-Type": "multiple/form-data",
+        },
+      })
       .then((response) => {
         console.log(response);
         if (response?.status === 201) {
@@ -105,7 +110,7 @@ const CreateWithEditor = () => {
         `https://api.business.opaqueindustries.news/programs`,
         {
           headers: {
-            Authorization: `Bearer ${accessInfo}`,
+            Authorization: `Bearer ${accessInfo?.accessToken}`,
           },
         }
       );
